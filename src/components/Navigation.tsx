@@ -19,7 +19,7 @@ const Navigation = () => {
 
   const navLinks = [
     { label: "Начало", href: "/", isPage: true },
-    { label: "Проекти", href: isHomePage ? "#projects" : "/#projects", isPage: !isHomePage },
+    { label: "Проекти", href: "/projects", isPage: true },
     { label: "Услуги", href: "/services", isPage: true },
     { label: "За нас", href: "/about", isPage: true },
     { label: "Контакт", href: "/contact", isPage: true },
