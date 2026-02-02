@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 // Import project images
 import projectDolce from "@/assets/project-dolce.png";
@@ -18,35 +18,44 @@ interface Project {
   categoryKey: string;
   description: string;
   image: string;
-  year: string;
+  // Scattered positioning
+  position: {
+    top?: string;
+    left?: string;
+    right?: string;
+    bottom?: string;
+  };
+  size: string;
+  rotation: number;
+  zIndex: number;
 }
 
 const ProjectsSection = () => {
   const ref = useRef(null);
   const containerRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeFilter, setActiveFilter] = useState("Всички");
-  const [activeProject, setActiveProject] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
-
-  const filters = ["Всички", "Брандинг", "Уеб", "Социални", "Motion"];
+  const parallaxY1 = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const parallaxY2 = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const parallaxY3 = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   const projects: Project[] = [
     {
       title: "Dolce Amaro",
       category: "Уеб дизайн",
       categoryKey: "Уеб",
-      description: "Модерен уебсайт за италиански ресторант с онлайн поръчки",
+      description: "Модерен уебсайт за италиански ресторант",
       image: projectDolce,
-      year: "2024",
+      position: { top: "5%", left: "2%" },
+      size: "w-[45%] md:w-[35%]",
+      rotation: -3,
+      zIndex: 3,
     },
     {
       title: "Double44",
@@ -54,140 +63,120 @@ const ProjectsSection = () => {
       categoryKey: "Брандинг",
       description: "Луксозен бар в центъра на Варна",
       image: projectDouble44,
-      year: "2024",
+      position: { top: "0%", right: "5%" },
+      size: "w-[50%] md:w-[40%]",
+      rotation: 4,
+      zIndex: 4,
     },
     {
       title: "Elegant Moodboard",
       category: "Социални шаблони",
       categoryKey: "Социални",
-      description: "Естетична визуална система за фотографско студио",
+      description: "Естетична визуална система",
       image: projectMoodboard,
-      year: "2024",
+      position: { top: "35%", left: "15%" },
+      size: "w-[40%] md:w-[28%]",
+      rotation: -5,
+      zIndex: 5,
     },
     {
       title: "Soul Beauty",
       category: "Социални шаблони",
       categoryKey: "Социални",
-      description: "Цялостна визуална идентичност за салон за красота",
+      description: "Визуална идентичност за салон",
       image: projectSoul,
-      year: "2023",
+      position: { top: "25%", right: "10%" },
+      size: "w-[35%] md:w-[25%]",
+      rotation: 6,
+      zIndex: 2,
     },
     {
       title: "Aurum",
       category: "Социални шаблони",
       categoryKey: "Социални",
-      description: "Система от шаблони за луксозна бижутерска марка",
+      description: "Луксозна бижутерска марка",
       image: projectAurum,
-      year: "2023",
+      position: { top: "55%", left: "5%" },
+      size: "w-[38%] md:w-[30%]",
+      rotation: 3,
+      zIndex: 6,
     },
     {
       title: "Verde Organic",
       category: "Брандинг",
       categoryKey: "Брандинг",
-      description: "Цялостна идентичност за биологичен производител",
+      description: "Биологичен производител",
       image: projectVerde,
-      year: "2023",
+      position: { top: "50%", right: "2%" },
+      size: "w-[45%] md:w-[32%]",
+      rotation: -4,
+      zIndex: 1,
     },
     {
       title: "Kinetic",
       category: "Motion дизайн",
       categoryKey: "Motion",
-      description: "Анимирани елементи за технологична компания",
+      description: "Анимирани елементи",
       image: projectKinetic,
-      year: "2023",
+      position: { top: "75%", left: "20%" },
+      size: "w-[35%] md:w-[26%]",
+      rotation: 5,
+      zIndex: 7,
     },
     {
       title: "Lumina Events",
       category: "Печатни материали",
       categoryKey: "Брандинг",
-      description: "Пълен комплект материали за агенция за събития",
+      description: "Материали за събития",
       image: projectLumina,
-      year: "2022",
+      position: { top: "70%", right: "15%" },
+      size: "w-[40%] md:w-[28%]",
+      rotation: -2,
+      zIndex: 8,
     },
   ];
 
-  const filteredProjects =
-    activeFilter === "Всички"
-      ? projects
-      : projects.filter((p) => p.categoryKey === activeFilter);
-
-  // Auto-play carousel
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const interval = setInterval(() => {
-      setActiveProject((prev) => (prev + 1) % filteredProjects.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, filteredProjects.length]);
-
-  // Reset active project when filter changes
-  useEffect(() => {
-    setActiveProject(0);
-  }, [activeFilter]);
-
-  const currentProject = filteredProjects[activeProject];
+  const getParallax = (index: number) => {
+    if (index % 3 === 0) return parallaxY1;
+    if (index % 3 === 1) return parallaxY2;
+    return parallaxY3;
+  };
 
   return (
     <section
       id="projects"
       ref={containerRef}
-      className="py-section relative overflow-hidden min-h-screen"
+      className="py-section relative overflow-hidden"
     >
-      {/* Dramatic background */}
+      {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Morphing gradient orbs */}
         <motion.div
-          className="absolute -top-1/2 -left-1/4 w-[1200px] h-[1200px] rounded-full opacity-30"
+          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full opacity-20"
           style={{
-            background: "radial-gradient(circle, hsl(var(--accent) / 0.3) 0%, transparent 50%)",
-            y: parallaxY,
+            background: "radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 60%)",
           }}
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
+            scale: [1, 1.3, 1],
+            x: [0, 50, 0],
           }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
-        
         <motion.div
-          className="absolute -bottom-1/2 -right-1/4 w-[1000px] h-[1000px] rounded-full opacity-20"
+          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-15"
           style={{
-            background: "radial-gradient(circle, hsl(var(--warm-beige) / 0.4) 0%, transparent 50%)",
+            background: "radial-gradient(circle, hsl(var(--warm-beige) / 0.3) 0%, transparent 60%)",
           }}
           animate={{
             scale: [1.2, 1, 1.2],
-            x: [0, 100, 0],
           }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
-
-        {/* Floating lines */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"
-            style={{
-              top: `${20 + i * 15}%`,
-              left: 0,
-              right: 0,
-            }}
-            animate={{
-              x: ["-100%", "100%"],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 8 + i * 2,
-              repeat: Infinity,
-              delay: i * 0.5,
-            }}
-          />
-        ))}
       </div>
 
       <div ref={ref} className="container-wide relative z-10">
         {/* Header */}
         <motion.div
-          className="mb-20"
+          className="mb-16 md:mb-24"
           initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -210,275 +199,226 @@ const ProjectsSection = () => {
               Избрани проекти
             </motion.h2>
           </div>
-
-          {/* Filters */}
-          <motion.div 
-            className="flex flex-wrap gap-3 mt-12"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.5 }}
-          >
-            {filters.map((filter, i) => (
-              <motion.button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`relative px-6 py-3 text-sm border overflow-hidden transition-all duration-500 ${
-                  activeFilter === filter
-                    ? "border-accent text-accent bg-accent/10"
-                    : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
-                }`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.5 + i * 0.05 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {filter}
-              </motion.button>
-            ))}
-          </motion.div>
         </motion.div>
 
-        {/* Main Showcase - Cinematic Display */}
-        <motion.div
-          className="relative"
-          style={{ perspective: "2000px" }}
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
-        >
-          {/* Main Project Display */}
-          <motion.div
-            className="relative aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-lg"
-            style={{ rotateX }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentProject?.title}
-                className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        {/* Scattered Projects Container */}
+        <div className="relative h-[200vh] md:h-[250vh]">
+          {projects.map((project, index) => (
+            <motion.article
+              key={project.title}
+              className={`absolute ${project.size} cursor-pointer group`}
+              style={{
+                ...project.position,
+                zIndex: hoveredProject === index ? 100 : project.zIndex,
+                y: getParallax(index),
+              }}
+              initial={{ 
+                opacity: 0, 
+                scale: 0.8, 
+                rotate: project.rotation * 2 
+              }}
+              animate={isInView ? { 
+                opacity: 1, 
+                scale: 1, 
+                rotate: project.rotation 
+              } : {}}
+              transition={{
+                duration: 0.8,
+                delay: 0.2 + index * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              whileHover={{ 
+                scale: 1.05, 
+                rotate: 0,
+                transition: { duration: 0.4 }
+              }}
+              onMouseEnter={() => setHoveredProject(index)}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              {/* Card with shadow and border */}
+              <motion.div 
+                className="relative bg-background overflow-hidden"
+                style={{
+                  boxShadow: hoveredProject === index 
+                    ? "0 30px 60px -15px rgba(0,0,0,0.4), 0 0 0 1px hsl(var(--accent) / 0.3)" 
+                    : "0 20px 40px -15px rgba(0,0,0,0.3)",
+                }}
+                animate={{
+                  y: hoveredProject === index ? -10 : 0,
+                }}
+                transition={{ duration: 0.3 }}
               >
-                <img
-                  src={currentProject?.image}
-                  alt={currentProject?.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-transparent to-primary/50" />
-                
-                {/* Grain overlay */}
-                <div 
-                  className="absolute inset-0 opacity-30 mix-blend-overlay"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-                  }}
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Project Info Overlay */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentProject?.title + "-info"}
-                className="absolute bottom-0 left-0 right-0 p-8 md:p-12"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <motion.span 
-                  className="inline-block px-4 py-2 bg-accent text-primary-foreground text-xs font-medium mb-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  {currentProject?.category}
-                </motion.span>
-                
-                <motion.h3 
-                  className="text-4xl md:text-6xl lg:text-7xl font-display text-primary-foreground mb-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  {currentProject?.title}
-                </motion.h3>
-                
-                <motion.p 
-                  className="text-primary-foreground/80 text-lg md:text-xl max-w-xl"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  {currentProject?.description}
-                </motion.p>
-
-                <motion.span 
-                  className="inline-block mt-4 text-primary-foreground/60 text-sm"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  {currentProject?.year}
-                </motion.span>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation arrows */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-4 right-4 flex justify-between pointer-events-none">
-              <motion.button
-                className="w-14 h-14 rounded-full border border-primary-foreground/30 flex items-center justify-center backdrop-blur-sm pointer-events-auto"
-                whileHover={{ scale: 1.1, borderColor: "hsl(var(--accent))" }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveProject((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length)}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary-foreground))" strokeWidth="2">
-                  <path d="M19 12H5M12 19l-7-7 7-7" />
-                </svg>
-              </motion.button>
-              
-              <motion.button
-                className="w-14 h-14 rounded-full border border-primary-foreground/30 flex items-center justify-center backdrop-blur-sm pointer-events-auto"
-                whileHover={{ scale: 1.1, borderColor: "hsl(var(--accent))" }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveProject((prev) => (prev + 1) % filteredProjects.length)}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary-foreground))" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </motion.button>
-            </div>
-          </motion.div>
-
-          {/* Thumbnail Strip */}
-          <motion.div 
-            className="mt-8 relative"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8 }}
-          >
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-              {filteredProjects.map((project, index) => (
-                <motion.button
-                  key={project.title}
-                  className={`relative flex-shrink-0 w-32 md:w-40 aspect-[4/3] overflow-hidden rounded-sm transition-all duration-500 ${
-                    activeProject === index 
-                      ? "ring-2 ring-accent ring-offset-2 ring-offset-background" 
-                      : "opacity-50 hover:opacity-100"
-                  }`}
-                  onClick={() => setActiveProject(index)}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.9 + index * 0.1 }}
-                >
-                  <img
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <motion.img
                     src={project.image}
                     alt={project.title}
                     className="absolute inset-0 w-full h-full object-cover"
+                    animate={{
+                      scale: hoveredProject === index ? 1.1 : 1,
+                    }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   />
                   
-                  {/* Active indicator */}
-                  <AnimatePresence>
-                    {activeProject === index && (
-                      <motion.div
-                        className="absolute inset-0 border-2 border-accent"
-                        initial={{ opacity: 0, scale: 1.2 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                      />
-                    )}
-                  </AnimatePresence>
-                  
-                  {/* Hover overlay */}
+                  {/* Overlay on hover */}
                   <motion.div
-                    className="absolute inset-0 bg-accent/20 opacity-0 hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: hoveredProject === index ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
                   />
-                </motion.button>
-              ))}
-            </div>
 
-            {/* Progress bar */}
-            <div className="mt-6 h-px bg-border relative overflow-hidden">
+                  {/* Category tag */}
+                  <motion.div
+                    className="absolute top-4 left-4"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ 
+                      opacity: hoveredProject === index ? 1 : 0,
+                      y: hoveredProject === index ? 0 : -10,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <span className="px-3 py-1.5 bg-accent text-primary-foreground text-xs font-medium">
+                      {project.category}
+                    </span>
+                  </motion.div>
+
+                  {/* Project info overlay */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 p-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: hoveredProject === index ? 1 : 0,
+                      y: hoveredProject === index ? 0 : 20,
+                    }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                  >
+                    <h3 className="text-xl md:text-2xl font-display text-primary-foreground mb-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-primary-foreground/70 text-sm">
+                      {project.description}
+                    </p>
+                  </motion.div>
+                </div>
+
+                {/* Bottom bar - always visible */}
+                <div className="p-3 md:p-4 border-t border-border">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
+                      {project.title}
+                    </span>
+                    <motion.div
+                      className="w-6 h-6 rounded-full border border-foreground/30 flex items-center justify-center"
+                      animate={{
+                        scale: hoveredProject === index ? 1.2 : 1,
+                        borderColor: hoveredProject === index ? "hsl(var(--accent))" : "hsl(var(--foreground) / 0.3)",
+                      }}
+                    >
+                      <motion.svg 
+                        width="10" 
+                        height="10" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2"
+                        animate={{
+                          x: hoveredProject === index ? 2 : 0,
+                          color: hoveredProject === index ? "hsl(var(--accent))" : "currentColor",
+                        }}
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </motion.svg>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Decorative corner elements */}
               <motion.div
-                className="absolute left-0 top-0 h-full bg-accent"
-                initial={{ width: "0%" }}
-                animate={{ 
-                  width: `${((activeProject + 1) / filteredProjects.length) * 100}%` 
-                }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              />
-            </div>
-
-            {/* Counter */}
-            <div className="mt-4 flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">
-                <span className="text-foreground font-medium">{String(activeProject + 1).padStart(2, '0')}</span>
-                {" / "}
-                {String(filteredProjects.length).padStart(2, '0')}
-              </span>
-              
-              <motion.button
-                className="text-accent hover:text-foreground transition-colors flex items-center gap-2 group"
-                whileHover={{ x: 5 }}
+                className="absolute -top-2 -left-2 w-4 h-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: hoveredProject === index ? 1 : 0 }}
               >
-                <span>Виж всички</span>
-                <motion.svg 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2"
-                  className="group-hover:translate-x-1 transition-transform"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </motion.svg>
-              </motion.button>
-            </div>
-          </motion.div>
-        </motion.div>
+                <div className="absolute top-0 left-0 w-full h-px bg-accent" />
+                <div className="absolute top-0 left-0 w-px h-full bg-accent" />
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-2 -right-2 w-4 h-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: hoveredProject === index ? 1 : 0 }}
+              >
+                <div className="absolute bottom-0 right-0 w-full h-px bg-accent" />
+                <div className="absolute bottom-0 right-0 w-px h-full bg-accent" />
+              </motion.div>
+            </motion.article>
+          ))}
 
-        {/* Decorative element */}
-        <motion.div
-          className="mt-24 flex justify-center"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 1.5 }}
-        >
+          {/* Floating decorative elements between projects */}
           <motion.div
-            className="flex items-center gap-8"
-            animate={{ y: [0, -10, 0] }}
+            className="absolute top-[15%] left-[50%] w-20 h-20 border border-accent/20 rounded-full"
+            animate={{
+              rotate: 360,
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute top-[45%] right-[5%] w-12 h-12 border border-foreground/10"
+            animate={{
+              rotate: [0, 90, 180, 270, 360],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute top-[65%] left-[45%] w-3 h-3 bg-accent/30 rounded-full"
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.3, 1, 0.3],
+            }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          
+          {/* Scattered lines */}
+          <motion.div
+            className="absolute top-[30%] left-[40%] w-40 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"
+            style={{ rotate: 15 }}
+            animate={{ scaleX: [0.5, 1, 0.5], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 5, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute top-[60%] right-[30%] w-32 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"
+            style={{ rotate: -10 }}
+            animate={{ scaleX: [0.5, 1, 0.5], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+          />
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          className="mt-12 flex justify-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 1.2 }}
+        >
+          <motion.button
+            className="group relative px-8 py-4 border border-foreground text-foreground overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <motion.div
-              className="w-32 h-px bg-gradient-to-r from-transparent via-accent to-transparent"
-              animate={{ scaleX: [0.5, 1, 0.5], opacity: [0.3, 1, 0.3] }}
-              transition={{ duration: 3, repeat: Infinity }}
+            <motion.span
+              className="absolute inset-0 bg-accent"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "0%" }}
+              transition={{ duration: 0.4 }}
             />
-            <motion.div
-              className="relative w-4 h-4"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="absolute inset-0 border border-accent" />
-              <motion.div 
-                className="absolute inset-1 bg-accent"
-                animate={{ scale: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            </motion.div>
-            <motion.div
-              className="w-32 h-px bg-gradient-to-r from-transparent via-accent to-transparent"
-              animate={{ scaleX: [0.5, 1, 0.5], opacity: [0.3, 1, 0.3] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
-          </motion.div>
+            <span className="relative flex items-center gap-3 group-hover:text-primary-foreground transition-colors">
+              Виж всички проекти
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </motion.button>
         </motion.div>
       </div>
     </section>
