@@ -29,7 +29,6 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
     const formTimer = setTimeout(() => setPhase("reveal"), 1800);
     const exitTimer = setTimeout(() => {
       setIsVisible(false);
-      setTimeout(onComplete, 800);
     }, 3200);
 
     return () => {
@@ -37,7 +36,15 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
       clearTimeout(formTimer);
       clearTimeout(exitTimer);
     };
-  }, [onComplete]);
+  }, []);
+
+  // Call onComplete when exit animation finishes
+  useEffect(() => {
+    if (!isVisible) {
+      const completeTimer = setTimeout(onComplete, 600);
+      return () => clearTimeout(completeTimer);
+    }
+  }, [isVisible, onComplete]);
 
   const handleSkip = () => {
     setIsVisible(false);
@@ -109,7 +116,7 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+            transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] },
           }}
         >
           {/* Animated background grid */}
