@@ -166,14 +166,14 @@ const Navigation = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background md:hidden overflow-hidden"
+            className="fixed inset-0 z-40 bg-background md:hidden overflow-hidden relative isolate"
             variants={menuVariants}
             initial="closed"
             animate="open"
             exit="closed"
           >
             {/* Decorative background elements */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
               <motion.div 
                 className="absolute top-20 right-0 w-64 h-64 rounded-full bg-accent/5"
                 initial={{ scale: 0, opacity: 0 }}
@@ -188,7 +188,7 @@ const Navigation = () => {
               />
             </div>
 
-            <nav className="flex flex-col h-full pt-28 pb-12 px-8">
+            <nav className="relative z-10 flex flex-col h-full pt-28 pb-12 px-8">
               {/* Navigation Links */}
               <div className="flex-1 flex flex-col justify-center space-y-2">
                 {navLinks.map((link, i) => (
