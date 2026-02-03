@@ -229,10 +229,10 @@ const Contact = () => {
               <div>
                 <h3 className="text-caption text-accent mb-4">Имейл</h3>
                 <a 
-                  href="mailto:hello@graphyra.com" 
+                  href="mailto:contact@graphyra.net" 
                   className="text-2xl md:text-3xl font-display hover:text-accent transition-colors"
                 >
-                  hello@graphyra.com
+                  contact@graphyra.net
                 </a>
               </div>
 
@@ -247,10 +247,12 @@ const Contact = () => {
               </div>
 
               <div>
-                <h3 className="text-caption text-accent mb-4">Локация</h3>
-                <p className="text-2xl md:text-3xl font-display">
-                  Варна, България
-                </p>
+                <h3 className="text-caption text-accent mb-4">Адрес</h3>
+                <address className="text-2xl md:text-3xl font-display not-italic">
+                  жк. ВЪЗРАЖДАНЕ 37,<br />
+                  вх. 2, ет. 7, ап. 41<br />
+                  <span className="text-xl text-muted-foreground">Варна, България</span>
+                </address>
               </div>
 
               <div>
@@ -269,31 +271,22 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Decorative element */}
-              <motion.div
-                className="relative w-full aspect-square max-w-xs"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-              >
-                <motion.div
-                  className="absolute inset-0 border border-accent/20"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                />
-                <motion.div
-                  className="absolute inset-8 border border-foreground/10"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.div
-                    className="w-4 h-4 bg-accent"
-                    animate={{ scale: [1, 1.5, 1], rotate: [0, 180, 360] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              {/* Google Map */}
+              <div>
+                <h3 className="text-caption text-accent mb-4">Намерете ни</h3>
+                <div className="w-full aspect-video rounded-lg overflow-hidden border border-border">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2908.456844!2d27.9167!3d43.2167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a4538bfb9e7a7f%3A0x5a5b8e8e8e8e8e8e!2z0LbQui4g0JLQqtCX0KDQkNCW0JTQkNCd0JUgMzcsINCS0LDRgNC90LAg0JHRitC70LPQsNGA0LjRjw!5e0!3m2!1sbg!2sbg!4v1700000000000!5m2!1sbg!2sbg"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Graphyra офис локация"
                   />
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

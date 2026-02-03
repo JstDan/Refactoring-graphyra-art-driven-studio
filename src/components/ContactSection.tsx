@@ -162,10 +162,10 @@ const ContactSection = () => {
               >
                 <p className="text-caption text-muted-foreground mb-2">Имейл</p>
                 <a
-                  href="mailto:hello@graphyra.com"
+                  href="mailto:contact@graphyra.net"
                   className="text-editorial text-2xl md:text-3xl relative inline-block group-hover:text-accent transition-colors"
                 >
-                  hello@graphyra.com
+                  contact@graphyra.net
                   <motion.span
                     className="absolute bottom-0 left-0 w-full h-0.5 bg-accent"
                     initial={{ scaleX: 0 }}
@@ -180,9 +180,10 @@ const ContactSection = () => {
                 whileHover={{ x: 10 }}
                 transition={{ duration: 0.3 }}
               >
-                <p className="text-caption text-muted-foreground mb-2">Локация</p>
+                <p className="text-caption text-muted-foreground mb-2">Адрес</p>
                 <p className="text-editorial text-xl md:text-2xl group-hover:text-accent transition-colors">
-                  София, България
+                  жк. ВЪЗРАЖДАНЕ 37, вх. 2, ет. 7, ап. 41<br />
+                  <span className="text-lg">Варна, България</span>
                 </p>
               </motion.div>
             </motion.div>
