@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useInView } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,6 +7,39 @@ import Footer from "@/components/Footer";
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  // Typewriter effect state
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "Graphyra";
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    let isDeleting = false;
+    
+    const typeInterval = setInterval(() => {
+      if (!isDeleting) {
+        if (currentIndex <= fullText.length) {
+          setDisplayText(fullText.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          // Pause before deleting
+          setTimeout(() => {
+            isDeleting = true;
+          }, 1500);
+        }
+      } else {
+        if (currentIndex > 0) {
+          currentIndex--;
+          setDisplayText(fullText.slice(0, currentIndex));
+        } else {
+          isDeleting = false;
+          // Small pause before retyping
+        }
+      }
+    }, 150);
+    
+    return () => clearInterval(typeInterval);
+  }, []);
 
   const values = [
     {
@@ -158,7 +191,14 @@ const About = () => {
                   transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-display text-8xl md:text-9xl text-accent/20">G</span>
+                  <span className="text-display text-4xl md:text-5xl lg:text-6xl text-accent/30 font-medium">
+                    {displayText}
+                    <motion.span
+                      className="inline-block w-[3px] h-[1em] bg-accent/40 ml-1 align-middle"
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 0.8, repeat: Infinity }}
+                    />
+                  </span>
                 </div>
               </div>
               {/* Decorative elements */}
