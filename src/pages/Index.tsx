@@ -13,6 +13,7 @@ import ScrollEffects from "@/components/ScrollEffects";
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
+  const [contentVisible, setContentVisible] = useState(false);
   const [hasVisited, setHasVisited] = useState(false);
 
   useEffect(() => {
@@ -21,8 +22,19 @@ const Index = () => {
     if (visited) {
       setShowIntro(false);
       setHasVisited(true);
+      setContentVisible(true);
     }
   }, []);
+
+  // Start showing content slightly before intro finishes for crossfade
+  useEffect(() => {
+    if (showIntro && !hasVisited) {
+      const revealTimer = setTimeout(() => {
+        setContentVisible(true);
+      }, 2800); // Start revealing content during intro's "reveal" phase
+      return () => clearTimeout(revealTimer);
+    }
+  }, [showIntro, hasVisited]);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -38,7 +50,17 @@ const Index = () => {
         <IntroLoader onComplete={handleIntroComplete} />
       )}
 
-      <div className={showIntro && !hasVisited ? "opacity-0" : "opacity-100 transition-opacity duration-500"}>
+      <div 
+        className={`transition-all ease-out ${
+          contentVisible 
+            ? "opacity-100 translate-y-0" 
+            : "opacity-0 translate-y-4"
+        }`}
+        style={{ 
+          transitionDuration: contentVisible ? "1s" : "0s",
+          transitionDelay: contentVisible && showIntro ? "0.2s" : "0s"
+        }}
+      >
         <ScrollEffects>
           <Navigation />
           <main>
