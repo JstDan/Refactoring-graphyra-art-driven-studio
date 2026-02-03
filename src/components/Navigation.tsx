@@ -190,25 +190,32 @@ const Navigation = () => {
 
             <nav className="flex flex-col h-full pt-28 pb-12 px-8">
               {/* Navigation Links */}
-              <div className="flex-1 flex flex-col justify-center">
+              <div className="flex-1 flex flex-col justify-center space-y-2">
                 {navLinks.map((link, i) => (
-                  <div key={link.href} className="overflow-hidden mb-2">
-                    <motion.div
-                      className="flex items-center gap-4"
-                      custom={i}
-                      variants={linkVariants}
-                      initial="closed"
-                      animate="open"
-                    >
+                  <motion.div 
+                    key={link.href} 
+                    className="overflow-hidden"
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0,
+                      transition: {
+                        delay: 0.1 + i * 0.08,
+                        duration: 0.5,
+                        ease: [0.16, 1, 0.3, 1]
+                      }
+                    }}
+                  >
+                    <div className="flex items-center gap-4">
                       {/* Index number */}
-                      <span className="text-caption text-accent w-8">
+                      <span className="text-sm font-medium text-accent w-8">
                         0{i + 1}
                       </span>
                       
                       {link.isPage ? (
                         <Link
                           to={link.href}
-                          className={`text-display text-4xl sm:text-5xl py-3 transition-colors duration-300 ${
+                          className={`font-display text-4xl sm:text-5xl py-3 transition-colors duration-300 ${
                             location.pathname === link.href 
                               ? 'text-accent' 
                               : 'text-foreground hover:text-accent'
@@ -220,22 +227,27 @@ const Navigation = () => {
                       ) : (
                         <button
                           onClick={() => scrollToSection(link.href)}
-                          className="text-display text-4xl sm:text-5xl py-3 text-foreground hover:text-accent transition-colors duration-300"
+                          className="font-display text-4xl sm:text-5xl py-3 text-foreground hover:text-accent transition-colors duration-300"
                         >
                           {link.label}
                         </button>
                       )}
-                    </motion.div>
+                    </div>
                     
                     {/* Decorative line */}
                     <motion.div
-                      className="h-px bg-border origin-left ml-12"
-                      custom={i}
-                      variants={decorVariants}
-                      initial="closed"
-                      animate="open"
+                      className="h-px bg-border origin-left ml-12 mt-2"
+                      initial={{ scaleX: 0 }}
+                      animate={{ 
+                        scaleX: 1,
+                        transition: {
+                          delay: 0.2 + i * 0.08,
+                          duration: 0.6,
+                          ease: [0.16, 1, 0.3, 1]
+                        }
+                      }}
                     />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
