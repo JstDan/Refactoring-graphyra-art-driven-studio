@@ -258,16 +258,24 @@ const Contact = () => {
               <div>
                 <h3 className="text-caption text-accent mb-4">Социални мрежи</h3>
                 <div className="flex gap-6">
-                  {["Instagram", "Behance", "LinkedIn"].map((social) => (
-                    <motion.a
-                      key={social}
-                      href="#"
-                      className="text-lg hover:text-accent transition-colors"
-                      whileHover={{ y: -2 }}
-                    >
-                      {social}
-                    </motion.a>
-                  ))}
+                  <motion.a
+                    href="https://www.instagram.com/graphyra.marketing/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-accent transition-colors"
+                    whileHover={{ y: -2 }}
+                  >
+                    Instagram
+                  </motion.a>
+                  <motion.a
+                    href="https://www.facebook.com/profile.php?id=61587596032693"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg hover:text-accent transition-colors"
+                    whileHover={{ y: -2 }}
+                  >
+                    Facebook
+                  </motion.a>
                 </div>
               </div>
 

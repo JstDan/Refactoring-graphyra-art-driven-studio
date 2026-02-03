@@ -262,16 +262,16 @@ const Navigation = () => {
                   <div>
                     <p className="text-caption text-muted-foreground mb-2">Свържете се с нас</p>
                     <a 
-                      href="mailto:hello@graphyra.com" 
+                      href="mailto:contact@graphyra.net" 
                       className="text-lg font-body text-foreground hover:text-accent transition-colors"
                     >
-                      hello@graphyra.com
+                      contact@graphyra.net
                     </a>
                   </div>
                   
                   <div className="flex gap-6">
                     <a 
-                      href="https://instagram.com/graphyra" 
+                      href="https://www.instagram.com/graphyra.marketing/" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-caption text-muted-foreground hover:text-accent transition-colors"
@@ -279,20 +279,12 @@ const Navigation = () => {
                       Instagram
                     </a>
                     <a 
-                      href="https://facebook.com/graphyra" 
+                      href="https://www.facebook.com/profile.php?id=61587596032693" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-caption text-muted-foreground hover:text-accent transition-colors"
                     >
                       Facebook
-                    </a>
-                    <a 
-                      href="https://linkedin.com/company/graphyra" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-caption text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      LinkedIn
                     </a>
                   </div>
                 </div>

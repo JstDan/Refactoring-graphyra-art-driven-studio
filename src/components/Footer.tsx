@@ -71,22 +71,20 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://www.instagram.com/graphyra.marketing/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-muted-foreground hover:text-accent transition-colors link-underline"
             >
               Instagram
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/profile.php?id=61587596032693"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-muted-foreground hover:text-accent transition-colors link-underline"
             >
-              Behance
-            </a>
-            <a
-              href="#"
-              className="text-sm text-muted-foreground hover:text-accent transition-colors link-underline"
-            >
-              LinkedIn
+              Facebook
             </a>
           </div>
         </div>
