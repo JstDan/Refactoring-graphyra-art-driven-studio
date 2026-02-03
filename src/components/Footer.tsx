@@ -23,7 +23,7 @@ const Footer = () => {
               <img 
                 src={logoGraphyra} 
                 alt="Graphyra Design Agency" 
-                className="h-12 w-auto"
+                className="h-16 w-auto"
               />
             </motion.a>
             <p className="text-muted-foreground text-sm">
