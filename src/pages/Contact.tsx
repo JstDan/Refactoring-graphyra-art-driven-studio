@@ -2,9 +2,15 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useToast } from "@/hooks/use-toast";
+
+const FORMSPREE_URL = "https://formspree.io/f/mreagkzn";
 
 const Contact = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const projectTypes = [
     "Брандинг",
@@ -14,6 +20,45 @@ const Contact = () => {
     "Motion дизайн",
     "Друго",
   ];
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    if (selectedType) {
+      formData.append("projectType", selectedType);
+    }
+
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Съобщението е изпратено!",
+          description: "Ще се свържем с вас възможно най-скоро.",
+        });
+        form.reset();
+        setSelectedType(null);
+        setFocusedField(null);
+      } else {
+        throw new Error("Failed to submit");
+      }
+    } catch {
+      toast({
+        title: "Грешка при изпращане",
+        description: "Моля, опитайте отново или ни пишете директно на имейл.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -98,7 +143,7 @@ const Contact = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <form className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Name */}
                 <div className="relative">
                   <motion.label
@@ -110,6 +155,8 @@ const Contact = () => {
                   </motion.label>
                   <input
                     type="text"
+                    name="name"
+                    required
                     className="w-full bg-transparent border-b-2 border-border py-4 text-lg focus:outline-none focus:border-accent transition-colors"
                     onFocus={() => setFocusedField("name")}
                     onBlur={(e) => !e.target.value && setFocusedField(null)}
@@ -133,6 +180,8 @@ const Contact = () => {
                   </motion.label>
                   <input
                     type="email"
+                    name="email"
+                    required
                     className="w-full bg-transparent border-b-2 border-border py-4 text-lg focus:outline-none focus:border-accent transition-colors"
                     onFocus={() => setFocusedField("email")}
                     onBlur={(e) => !e.target.value && setFocusedField(null)}
@@ -155,7 +204,12 @@ const Contact = () => {
                       <motion.button
                         key={type}
                         type="button"
-                        className="px-5 py-2.5 border border-border text-sm hover:border-accent hover:text-accent transition-colors"
+                        className={`px-5 py-2.5 border text-sm transition-colors ${
+                          selectedType === type
+                            ? "border-accent text-accent bg-accent/10"
+                            : "border-border hover:border-accent hover:text-accent"
+                        }`}
+                        onClick={() => setSelectedType(selectedType === type ? null : type)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -175,6 +229,8 @@ const Contact = () => {
                     Разкажете ни за проекта
                   </motion.label>
                   <textarea
+                    name="message"
+                    required
                     rows={4}
                     className="w-full bg-transparent border-b-2 border-border py-4 text-lg focus:outline-none focus:border-accent transition-colors resize-none"
                     onFocus={() => setFocusedField("message")}
@@ -191,9 +247,10 @@ const Contact = () => {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="group relative w-full md:w-auto px-12 py-5 bg-foreground text-background text-lg font-medium overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  disabled={isSubmitting}
+                  className="group relative w-full md:w-auto px-12 py-5 bg-foreground text-background text-lg font-medium overflow-hidden disabled:opacity-60"
+                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 >
                   <motion.span
                     className="absolute inset-0 bg-accent"
@@ -202,7 +259,7 @@ const Contact = () => {
                     transition={{ duration: 0.4 }}
                   />
                   <span className="relative flex items-center justify-center gap-3">
-                    Изпрати запитване
+                    {isSubmitting ? "Изпращане..." : "Изпрати запитване"}
                     <motion.svg
                       width="20"
                       height="20"

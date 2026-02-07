@@ -1,6 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+const FORMSPREE_URL = "https://formspree.io/f/mreagkzn";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -13,6 +16,8 @@ const ContactSection = () => {
     message: "",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -29,10 +34,39 @@ const ContactSection = () => {
     "Друго",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Съобщението е изпратено!",
+          description: "Ще се свържем с вас възможно най-скоро.",
+        });
+        setFormData({ name: "", email: "", projectType: "", message: "" });
+        setFocusedField(null);
+      } else {
+        throw new Error("Failed to submit");
+      }
+    } catch {
+      toast({
+        title: "Грешка при изпращане",
+        description: "Моля, опитайте отново или ни пишете директно на имейл.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -391,12 +425,13 @@ const ContactSection = () => {
               {/* Submit button with enhanced hover */}
               <motion.button
                 type="submit"
-                className="btn-primary w-full magnetic-hover mt-10 relative overflow-hidden group"
+                disabled={isSubmitting}
+                className="btn-primary w-full magnetic-hover mt-10 relative overflow-hidden group disabled:opacity-60"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.8 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
                 <motion.span
                   className="absolute inset-0 bg-gradient-to-r from-accent to-accent/80"
@@ -405,7 +440,7 @@ const ContactSection = () => {
                   transition={{ duration: 0.4 }}
                 />
                 <span className="relative flex items-center justify-center gap-3">
-                  Изпрати запитване
+                  {isSubmitting ? "Изпращане..." : "Изпрати запитване"}
                   <motion.svg
                     width="20"
                     height="20"
