@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
+import useTypewriter from "@/hooks/type-writer";
 import { useInView } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -7,60 +8,33 @@ import Footer from "@/components/Footer";
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
-  // Typewriter effect state
-  const [displayText, setDisplayText] = useState("");
-  const fullText = "Graphyra";
-  
-  useEffect(() => {
-    let currentIndex = 0;
-    let isDeleting = false;
-    
-    const typeInterval = setInterval(() => {
-      if (!isDeleting) {
-        if (currentIndex <= fullText.length) {
-          setDisplayText(fullText.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          // Pause before deleting
-          setTimeout(() => {
-            isDeleting = true;
-          }, 1500);
-        }
-      } else {
-        if (currentIndex > 0) {
-          currentIndex--;
-          setDisplayText(fullText.slice(0, currentIndex));
-        } else {
-          isDeleting = false;
-          // Small pause before retyping
-        }
-      }
-    }, 150);
-    
-    return () => clearInterval(typeInterval);
-  }, []);
 
+  // Typewriter effect state
+  const displayText = useTypewriter("Graphyra");
   const values = [
     {
       number: "01",
       title: "Форма преди тренд",
-      description: "Не следваме модни вълни. Създаваме дизайн, който издържа на времето и изгражда истинска идентичност.",
+      description:
+        "Не следваме модни вълни. Създаваме дизайн, който издържа на времето и изгражда истинска идентичност.",
     },
     {
       number: "02",
       title: "Дизайн със структура",
-      description: "Всеки елемент има своето място и цел. Балансът между естетика и функционалност е в основата на работата ни.",
+      description:
+        "Всеки елемент има своето място и цел. Балансът между естетика и функционалност е в основата на работата ни.",
     },
     {
       number: "03",
       title: "Визуален образ с цел",
-      description: "Дизайнът не е украшение — той комуникира, убеждава и създава връзка между бранда и аудиторията.",
+      description:
+        "Дизайнът не е украшение — той комуникира, убеждава и създава връзка между бранда и аудиторията.",
     },
     {
       number: "04",
       title: "Детайлите имат значение",
-      description: "От кернинга до цветовите нюанси — перфекционизмът ни е гаранция за качество във всеки пиксел.",
+      description:
+        "От кернинга до цветовите нюанси — перфекционизмът ни е гаранция за качество във всеки пиксел.",
     },
   ];
 
@@ -82,7 +56,8 @@ const About = () => {
           <motion.div
             className="absolute top-1/4 left-1/4 w-[700px] h-[700px] rounded-full opacity-25"
             style={{
-              background: "radial-gradient(circle, hsl(var(--accent) / 0.4) 0%, transparent 60%)",
+              background:
+                "radial-gradient(circle, hsl(var(--accent) / 0.4) 0%, transparent 60%)",
               filter: "blur(80px)",
             }}
             animate={{
@@ -94,7 +69,8 @@ const About = () => {
           <motion.div
             className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-20"
             style={{
-              background: "radial-gradient(circle, hsl(var(--warm-beige) / 0.5) 0%, transparent 60%)",
+              background:
+                "radial-gradient(circle, hsl(var(--warm-beige) / 0.5) 0%, transparent 60%)",
               filter: "blur(60px)",
             }}
             animate={{
@@ -103,7 +79,7 @@ const About = () => {
             }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
-          
+
           {/* Floating shapes */}
           <motion.div
             className="absolute top-[20%] right-[15%] w-24 h-24 border border-accent/30"
@@ -140,9 +116,10 @@ const About = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Ние сме дизайн студио със страст към създаването на визуални идентичности, 
-            които оставят трайно впечатление. Вярваме, че добрият дизайн е повече от красота — 
-            той е стратегия, комуникация и изкуство в едно.
+            Ние сме дизайн студио със страст към създаването на визуални
+            идентичности, които оставят трайно впечатление. Вярваме, че добрият
+            дизайн е повече от красота — той е стратегия, комуникация и изкуство
+            в едно.
           </motion.p>
         </div>
       </section>
@@ -162,16 +139,17 @@ const About = () => {
               </h2>
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  Graphyra е основана с идеята да предложи премиум дизайн услуги, 
-                  достъпни за бизнеси от всякакъв мащаб. Името ни идва от "графика" и "аура" — 
-                  защото вярваме, че всеки бранд има уникална енергия, която заслужава да бъде 
-                  визуализирана.
+                  Graphyra е основана с идеята да предложи премиум дизайн
+                  услуги, достъпни за бизнеси от всякакъв мащаб. Името ни идва
+                  от "графика" и "аура" — защото вярваме, че всеки бранд има
+                  уникална енергия, която заслужава да бъде визуализирана.
                 </p>
                 <p>
-                  Работим с клиенти от различни индустрии — от стартъпи до утвърдени компании, 
-                  от локални бизнеси до международни марки. Независимо от мащаба, подходът ни 
-                  остава същият: внимание към детайла, креативност без компромиси и партньорство, 
-                  основано на доверие.
+                  Работим с клиенти от различни индустрии — от стартъпи до
+                  утвърдени компании, от локални бизнеси до международни марки.
+                  Независимо от мащаба, подходът ни остава същият: внимание към
+                  детайла, креативност без компромиси и партньорство, основано
+                  на доверие.
                 </p>
               </div>
             </motion.div>
@@ -188,7 +166,11 @@ const About = () => {
                 <motion.div
                   className="absolute inset-8 border border-accent/30"
                   animate={{ rotate: [0, 5, 0, -5, 0] }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-display text-4xl md:text-5xl lg:text-6xl text-accent/30 font-medium">
@@ -242,7 +224,9 @@ const About = () => {
                   whileHover={{ scaleX: 1 }}
                   transition={{ duration: 0.4 }}
                 />
-                <span className="text-accent text-sm font-medium">{value.number}</span>
+                <span className="text-accent text-sm font-medium">
+                  {value.number}
+                </span>
                 <h3 className="text-editorial text-2xl md:text-3xl mt-4 mb-4 group-hover:text-accent transition-colors">
                   {value.title}
                 </h3>
@@ -303,7 +287,14 @@ const About = () => {
             whileTap={{ scale: 0.98 }}
           >
             Свържи се с нас
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </motion.a>
