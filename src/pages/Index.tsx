@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
-import HeroSection from "@/components/HeroSection";
+import HeroSectionMain from "@/components/HeroSectionMain";
 import PrinciplesSection from "@/components/PrinciplesSection";
 import ServicesSection from "@/components/ServicesSection";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -45,26 +45,26 @@ const Index = () => {
   return (
     <>
       <CustomCursor />
-      
+
       {showIntro && !hasVisited && (
         <IntroLoader onComplete={handleIntroComplete} />
       )}
 
-      <div 
+      <div
         className={`transition-all ease-out ${
-          contentVisible 
-            ? "opacity-100 translate-y-0" 
+          contentVisible
+            ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4"
         }`}
-        style={{ 
+        style={{
           transitionDuration: contentVisible ? "1s" : "0s",
-          transitionDelay: contentVisible && showIntro ? "0.2s" : "0s"
+          transitionDelay: contentVisible && showIntro ? "0.2s" : "0s",
         }}
       >
         <ScrollEffects>
           <Navigation />
           <main>
-            <HeroSection />
+            <HeroSectionMain />
             <div className="section-divider" />
             <PrinciplesSection />
             <ServicesSection />

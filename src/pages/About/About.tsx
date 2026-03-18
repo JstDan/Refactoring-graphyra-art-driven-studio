@@ -3,14 +3,17 @@ import { useRef } from "react";
 import { useInView } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import HeroSectionSecondary from "@/components/HeroSectionSecondary.tsx";
+import { useNavigate } from "react-router-dom";
 //hooks
 import useTypewriter from "@/hooks/type-writer";
 //data
-import { aboutData } from "./About.ts";
+import { aboutData } from "./AboutData.ts";
 
-const { values, stats } = aboutData;
+const { heroInfo, values, stats } = aboutData;
 
 const About = () => {
+  const navigate = useNavigate();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -19,82 +22,9 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Background effects */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-[700px] h-[700px] rounded-full opacity-25"
-            style={{
-              background:
-                "radial-gradient(circle, hsl(var(--accent) / 0.4) 0%, transparent 60%)",
-              filter: "blur(80px)",
-            }}
-            animate={{
-              scale: [1, 1.3, 1],
-              rotate: [0, 180, 360],
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-20"
-            style={{
-              background:
-                "radial-gradient(circle, hsl(var(--warm-beige) / 0.5) 0%, transparent 60%)",
-              filter: "blur(60px)",
-            }}
-            animate={{
-              x: [0, -50, 0],
-              y: [0, 30, 0],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          />
-
-          {/* Floating shapes */}
-          <motion.div
-            className="absolute top-[20%] right-[15%] w-24 h-24 border border-accent/30"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute bottom-[30%] left-[10%] w-16 h-16 border border-foreground/10 rounded-full"
-            animate={{ y: [0, -20, 0], opacity: [0.3, 0.7, 0.3] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-
-        <div className="container-wide relative z-10">
-          <motion.p
-            className="text-caption text-accent mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Кои сме ние
-          </motion.p>
-          <motion.h1
-            className="text-display text-[12vw] sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-8"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            За Graphyra
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-2xl text-muted-foreground max-w-3xl leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Ние сме дизайн студио със страст към създаването на визуални
-            идентичности, които оставят трайно впечатление. Вярваме, че добрият
-            дизайн е повече от красота — той е стратегия, комуникация и изкуство
-            в едно.
-          </motion.p>
-        </div>
-      </section>
-
+      {heroInfo.map((hero, index) => (
+        <HeroSectionSecondary key={index} {...hero} />
+      ))}
       {/* Story Section */}
       <section className="py-24 relative">
         <div className="container-wide">
@@ -164,7 +94,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
       {/* Values Section */}
       <section ref={ref} className="py-24 bg-muted/30">
         <div className="container-wide">
@@ -209,7 +138,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
       <section className="py-24">
         <div className="container-wide">
@@ -238,7 +166,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-accent/5 to-transparent" />
@@ -256,6 +183,7 @@ const About = () => {
             className="inline-flex items-center gap-3 px-10 py-5 bg-accent text-primary-foreground text-lg font-medium hover:bg-accent/90 transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => navigate("/contact")}
           >
             Свържи се с нас
             <svg
@@ -271,7 +199,6 @@ const About = () => {
           </motion.a>
         </div>
       </section>
-
       <Footer />
     </div>
   );

@@ -1,4 +1,9 @@
 export type AboutData = {
+  heroInfo: {
+    subtitle: string;
+    title: string;
+    description: string;
+  }[];
   values: {
     number: string;
     title: string;
@@ -11,6 +16,14 @@ export type AboutData = {
 };
 
 export const aboutData: AboutData = {
+  heroInfo: [
+    {
+      subtitle: "Кои сме ние",
+      title: "За Graphyra",
+      description:
+        "Ние сме дизайн студио със страст към създаването на визуални идентичности...",
+    },
+  ],
   values: [
     {
       number: "01",
