@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import Projects from "./pages/Projects";
-import Services from "./pages/Services";
+import Services from "./pages/Services/Services.tsx";
 import About from "./pages/About/About.tsx";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";

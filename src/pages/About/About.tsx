@@ -7,12 +7,11 @@ import ValuesSection from "@/components/ValuesSection.tsx";
 import StatsSection from "@/components/StatsSection.tsx";
 import CtaSection from "@/components/CtaSection.tsx";
 // hooks
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 //data
 import { aboutData } from "./AboutData.ts";
 
-const { heroInfo, stats } = aboutData;
+const { heroInfo, stats, cta } = aboutData;
 
 const About = () => {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ const About = () => {
       <StatsSection />
 
       {/* CTA Section */}
-      <CtaSection />
+      <CtaSection title={cta.title} buttonLabel={cta.buttonLabel} />
 
       <Footer />
     </div>

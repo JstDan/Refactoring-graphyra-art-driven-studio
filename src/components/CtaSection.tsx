@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-const CtaSection = () => {
+
+type CtaSectionProps = {
+  title: string;
+  buttonLabel: string;
+  subtitle?: string;
+};
+
+const CtaSection = ({ title, buttonLabel, subtitle }: CtaSectionProps) => {
   const navigate = useNavigate();
   return (
     <>
@@ -14,8 +21,19 @@ const CtaSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Да работим заедно?
+            {title}
           </motion.h2>
+          {subtitle && (
+            <motion.p
+              className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              {subtitle}
+            </motion.p>
+          )}
           <motion.a
             href="/contact"
             className="inline-flex items-center gap-3 px-10 py-5 bg-accent text-primary-foreground text-lg font-medium hover:bg-accent/90 transition-colors"
@@ -23,7 +41,7 @@ const CtaSection = () => {
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate("/contact")}
           >
-            Свържи се с нас
+            {buttonLabel}
             <svg
               width="20"
               height="20"

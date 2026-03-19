@@ -17,6 +17,10 @@ export type AboutData = {
     number: string;
     label: string;
   }[];
+  cta: {
+    title: string;
+    buttonLabel: string;
+  };
 };
 
 export const aboutData: AboutData = {
@@ -67,4 +71,8 @@ export const aboutData: AboutData = {
     { number: "3+", label: "Години опит" },
     { number: "100%", label: "Отдаденост" },
   ],
+  cta: {
+    title: "Да работим заедно?",
+    buttonLabel: "Свържи се с нас",
+  },
 };
