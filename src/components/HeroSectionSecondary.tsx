@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 type HeroProps = {
   subtitle: string;
   title: string;
-  description: string;
+  description?: string;
 };
 const HeroSectionSecondary = ({ subtitle, title, description }: HeroProps) => {
   return (
@@ -61,7 +61,7 @@ const HeroSectionSecondary = ({ subtitle, title, description }: HeroProps) => {
             {subtitle}
           </motion.p>
           <motion.h1
-            className="text-display text-[12vw] sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-8"
+            className="text-display text-[12vw] sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-8 whitespace-pre-line"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}

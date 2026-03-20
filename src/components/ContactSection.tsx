@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import ProjectTypeSection from "./ProjectTypeSection";
 
 const FORMSPREE_URL = "https://formspree.io/f/mreagkzn";
 
@@ -25,14 +26,6 @@ const ContactSection = () => {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
-
-  const projectTypes = [
-    "Брандинг",
-    "Уеб дизайн",
-    "Социално присъствие",
-    "Печат",
-    "Друго",
-  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +63,9 @@ const ContactSection = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -88,7 +83,8 @@ const ContactSection = () => {
           <motion.div
             className="absolute -top-1/2 right-0 w-[1000px] h-[1000px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(var(--warm-beige) / 0.25) 0%, transparent 50%)",
+              background:
+                "radial-gradient(circle, hsl(var(--warm-beige) / 0.25) 0%, transparent 50%)",
             }}
             animate={{
               scale: [1, 1.1, 1],
@@ -101,7 +97,8 @@ const ContactSection = () => {
           <motion.div
             className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(var(--accent) / 0.1) 0%, transparent 50%)",
+              background:
+                "radial-gradient(circle, hsl(var(--accent) / 0.1) 0%, transparent 50%)",
             }}
             animate={{
               scale: [1, 1.15, 1],
@@ -154,7 +151,7 @@ const ContactSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <motion.p 
+            <motion.p
               className="text-caption text-accent mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -163,16 +160,20 @@ const ContactSection = () => {
               Контакт
             </motion.p>
             <div className="overflow-hidden mb-8">
-              <motion.h2 
+              <motion.h2
                 className="text-display text-[8vw] sm:text-5xl md:text-6xl lg:text-7xl leading-tight"
                 initial={{ y: 100 }}
                 animate={isInView ? { y: 0 } : {}}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                transition={{
+                  duration: 1,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.1,
+                }}
               >
                 Да създадем нещо, което остава.
               </motion.h2>
             </div>
-            <motion.p 
+            <motion.p
               className="text-muted-foreground text-lg md:text-xl mb-10 max-w-md"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -183,13 +184,13 @@ const ContactSection = () => {
             </motion.p>
 
             {/* Direct contact with enhanced styling */}
-            <motion.div 
+            <motion.div
               className="space-y-8"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              <motion.div 
+              <motion.div
                 className="group"
                 whileHover={{ x: 10 }}
                 transition={{ duration: 0.3 }}
@@ -216,7 +217,8 @@ const ContactSection = () => {
               >
                 <p className="text-caption text-muted-foreground mb-2">Адрес</p>
                 <p className="text-editorial text-xl md:text-2xl group-hover:text-accent transition-colors">
-                  жк. ВЪЗРАЖДАНЕ 37, вх. 2, ет. 7, ап. 41<br />
+                  жк. ВЪЗРАЖДАНЕ 37, вх. 2, ет. 7, ап. 41
+                  <br />
                   <span className="text-lg">Варна, България</span>
                 </p>
               </motion.div>
@@ -258,7 +260,7 @@ const ContactSection = () => {
           >
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Name */}
-              <motion.div 
+              <motion.div
                 className="relative"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -267,7 +269,9 @@ const ContactSection = () => {
                 <motion.label
                   htmlFor="name"
                   className={`text-caption block mb-3 transition-colors duration-300 ${
-                    focusedField === "name" ? "text-accent" : "text-muted-foreground"
+                    focusedField === "name"
+                      ? "text-accent"
+                      : "text-muted-foreground"
                   }`}
                   animate={{ x: focusedField === "name" ? 5 : 0 }}
                 >
@@ -295,7 +299,7 @@ const ContactSection = () => {
               </motion.div>
 
               {/* Email */}
-              <motion.div 
+              <motion.div
                 className="relative"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -304,7 +308,9 @@ const ContactSection = () => {
                 <motion.label
                   htmlFor="email"
                   className={`text-caption block mb-3 transition-colors duration-300 ${
-                    focusedField === "email" ? "text-accent" : "text-muted-foreground"
+                    focusedField === "email"
+                      ? "text-accent"
+                      : "text-muted-foreground"
                   }`}
                   animate={{ x: focusedField === "email" ? 5 : 0 }}
                 >
@@ -332,62 +338,10 @@ const ContactSection = () => {
               </motion.div>
 
               {/* Project Type */}
-              <motion.div 
-                className="relative"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.6 }}
-              >
-                <motion.label
-                  htmlFor="projectType"
-                  className={`text-caption block mb-3 transition-colors duration-300 ${
-                    focusedField === "projectType" ? "text-accent" : "text-muted-foreground"
-                  }`}
-                  animate={{ x: focusedField === "projectType" ? 5 : 0 }}
-                >
-                  Тип проект
-                </motion.label>
-                <select
-                  id="projectType"
-                  name="projectType"
-                  value={formData.projectType}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField("projectType")}
-                  onBlur={() => setFocusedField(null)}
-                  required
-                  className="w-full px-0 py-4 bg-transparent border-b-2 border-border focus:border-accent outline-none transition-colors text-foreground text-lg cursor-pointer appearance-none"
-                  style={{ backgroundImage: "none" }}
-                >
-                  <option value="" disabled className="bg-background">
-                    Изберете тип
-                  </option>
-                  {projectTypes.map((type) => (
-                    <option key={type} value={type} className="bg-background">
-                      {type}
-                    </option>
-                  ))}
-                </select>
-                {/* Custom dropdown arrow */}
-                <motion.div
-                  className="absolute right-0 top-1/2 translate-y-1 pointer-events-none"
-                  animate={{ rotate: focusedField === "projectType" ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </motion.div>
-                <motion.div
-                  className="absolute bottom-0 left-0 h-0.5 bg-accent"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: focusedField === "projectType" ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  style={{ transformOrigin: "left" }}
-                />
-              </motion.div>
+              <ProjectTypeSection />
 
               {/* Message */}
-              <motion.div 
+              <motion.div
                 className="relative"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -396,7 +350,9 @@ const ContactSection = () => {
                 <motion.label
                   htmlFor="message"
                   className={`text-caption block mb-3 transition-colors duration-300 ${
-                    focusedField === "message" ? "text-accent" : "text-muted-foreground"
+                    focusedField === "message"
+                      ? "text-accent"
+                      : "text-muted-foreground"
                   }`}
                   animate={{ x: focusedField === "message" ? 5 : 0 }}
                 >

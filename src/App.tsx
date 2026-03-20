@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import Projects from "./pages/Projects";
 import Services from "./pages/Services/Services.tsx";
 import About from "./pages/About/About.tsx";
-import Contact from "./pages/Contact";
+import Contact from "./pages/Contact/Contact.tsx";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
