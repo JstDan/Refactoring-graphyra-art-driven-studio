@@ -20,17 +20,16 @@ const Navigation = () => {
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { label: "Начало", href: "/", isPage: true },
     { label: "Проекти", href: "/projects", isPage: true },
     { label: "Услуги", href: "/services", isPage: true },
     { label: "За нас", href: "/about", isPage: true },
@@ -53,15 +52,15 @@ const Navigation = () => {
       transition: {
         duration: 0.3,
         ease: [0.4, 0, 0.2, 1] as const,
-      }
+      },
     },
     open: {
       opacity: 1,
       transition: {
         duration: 0.4,
         ease: [0.4, 0, 0.2, 1] as const,
-      }
-    }
+      },
+    },
   };
 
   const linkVariants = {
@@ -72,9 +71,9 @@ const Navigation = () => {
       transition: {
         delay: 0.1 + i * 0.08,
         duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as const
-      }
-    })
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    }),
   };
 
   const decorVariants = {
@@ -84,9 +83,9 @@ const Navigation = () => {
       transition: {
         delay: 0.2 + i * 0.08,
         duration: 0.6,
-        ease: [0.16, 1, 0.3, 1] as const
-      }
-    })
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    }),
   };
 
   return (
@@ -104,9 +103,9 @@ const Navigation = () => {
         <nav className="container-wide flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center relative z-50">
-            <img 
-              src={logoGraphyra} 
-              alt="Graphyra Design Agency" 
+            <img
+              src={logoGraphyra}
+              alt="Graphyra Design Agency"
               className="h-20 w-auto mt-2 transition-transform hover:scale-105"
             />
           </Link>
@@ -173,18 +172,29 @@ const Navigation = () => {
             exit="closed"
           >
             {/* Decorative background elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
-              <motion.div 
+            <div
+              className="absolute inset-0 overflow-hidden pointer-events-none z-0"
+              aria-hidden="true"
+            >
+              <motion.div
                 className="absolute top-20 right-0 w-64 h-64 rounded-full bg-accent/5"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute bottom-20 left-0 w-48 h-48 rounded-full bg-accent/3"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  delay: 0.3,
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               />
             </div>
 
@@ -192,18 +202,18 @@ const Navigation = () => {
               {/* Navigation Links */}
               <div className="flex-1 flex flex-col justify-center space-y-2">
                 {navLinks.map((link, i) => (
-                  <motion.div 
-                    key={link.href} 
+                  <motion.div
+                    key={link.href}
                     className="overflow-hidden"
                     initial={{ opacity: 0, x: -40 }}
-                    animate={{ 
-                      opacity: 1, 
+                    animate={{
+                      opacity: 1,
                       x: 0,
                       transition: {
                         delay: 0.1 + i * 0.08,
                         duration: 0.5,
-                        ease: [0.16, 1, 0.3, 1]
-                      }
+                        ease: [0.16, 1, 0.3, 1],
+                      },
                     }}
                   >
                     <div className="flex items-center gap-4">
@@ -211,14 +221,14 @@ const Navigation = () => {
                       <span className="text-sm font-medium text-accent w-8 block">
                         0{i + 1}
                       </span>
-                      
+
                       {link.isPage ? (
                         <Link
                           to={link.href}
                           className={`text-display text-3xl sm:text-4xl py-3 block transition-colors duration-300 ${
-                            location.pathname === link.href 
-                              ? 'text-accent' 
-                              : 'text-foreground hover:text-accent'
+                            location.pathname === link.href
+                              ? "text-accent"
+                              : "text-foreground hover:text-accent"
                           }`}
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -233,18 +243,18 @@ const Navigation = () => {
                         </button>
                       )}
                     </div>
-                    
+
                     {/* Decorative line */}
                     <motion.div
                       className="h-px bg-border origin-left ml-12 mt-2"
                       initial={{ scaleX: 0 }}
-                      animate={{ 
+                      animate={{
                         scaleX: 1,
                         transition: {
                           delay: 0.2 + i * 0.08,
                           duration: 0.6,
-                          ease: [0.16, 1, 0.3, 1]
-                        }
+                          ease: [0.16, 1, 0.3, 1],
+                        },
                       }}
                     />
                   </motion.div>
@@ -252,7 +262,7 @@ const Navigation = () => {
               </div>
 
               {/* Footer info */}
-              <motion.div 
+              <motion.div
                 className="pt-8 border-t border-border"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -260,27 +270,29 @@ const Navigation = () => {
               >
                 <div className="flex flex-col gap-4">
                   <div>
-                    <p className="text-caption text-muted-foreground mb-2">Свържете се с нас</p>
-                    <a 
-                      href="mailto:contact@graphyra.net" 
+                    <p className="text-caption text-muted-foreground mb-2">
+                      Свържете се с нас
+                    </p>
+                    <a
+                      href="mailto:contact@graphyra.net"
                       className="text-lg font-body text-foreground hover:text-accent transition-colors"
                     >
                       contact@graphyra.net
                     </a>
                   </div>
-                  
+
                   <div className="flex gap-6">
-                    <a 
-                      href="https://www.instagram.com/graphyra.marketing/" 
-                      target="_blank" 
+                    <a
+                      href="https://www.instagram.com/graphyra.marketing/"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-caption text-muted-foreground hover:text-accent transition-colors"
                     >
                       Instagram
                     </a>
-                    <a 
-                      href="https://www.facebook.com/profile.php?id=61587596032693" 
-                      target="_blank" 
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61587596032693"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-caption text-muted-foreground hover:text-accent transition-colors"
                     >
