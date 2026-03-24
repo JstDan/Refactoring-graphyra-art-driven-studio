@@ -1,11 +1,11 @@
 // components
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import HeroSectionSecondary from "@/components/HeroSectionSecondary.tsx";
-import StorySection from "@/components/StorySection.tsx";
+import Navigation from "@/components/Navigation/Navigation.tsx";
+import Footer from "@/components/Footer/Footer.tsx";
+import HeroSectionSecondary from "@/components/HeroSections/HeroSectionSecondary.tsx";
+import StorySection from "@/components/StroySection/StorySection.tsx";
 import ValuesSection from "@/components/ValuesSection.tsx";
-import StatsSection from "@/components/StatsSection.tsx";
-import CtaSection from "@/components/CtaSection.tsx";
+import StatsSection from "@/components/StatsSection/StatsSection.tsx";
+import CtaSection from "@/components/CtaSection/CtaSection.tsx";
 // hooks
 import { useNavigate } from "react-router-dom";
 //data

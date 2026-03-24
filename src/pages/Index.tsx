@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import Navigation from "@/components/Navigation";
-import HeroSectionMain from "@/components/HeroSectionMain";
+import Navigation from "@/components/Navigation/Navigation";
+import HeroSectionMain from "@/components/HeroSections/HeroSectionMain";
 import PrinciplesSection from "@/components/PrinciplesSection";
-import ServicesSection from "@/components/ServicesSection";
-import ProjectsSection from "@/components/ProjectsSection";
+import ServicesSection from "@/components/Service/ServicesSection";
+import ProjectsSection from "@/components/Project/ProjectsSection";
 import ProcessSection from "@/components/ProcessSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
-import IntroLoader from "@/components/IntroLoader";
+import ContactSection from "@/components/Contact/ContactSection";
+import Footer from "@/components/Footer/Footer";
+import IntroLoader from "@/components/IntroLoader/IntroLoader";
 import CustomCursor from "@/components/CustomCursor";
-import ScrollEffects from "@/components/ScrollEffects";
+import ScrollEffects from "@/components/Scroll/ScrollEffects";
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);

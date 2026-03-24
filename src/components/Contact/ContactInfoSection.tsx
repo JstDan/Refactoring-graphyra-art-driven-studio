@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 //data
-import { contactData } from "../pages/Contact/ContactData";
+import { contactData } from "../../pages/Contact/ContactData";
 const ContactInfoSection = () => {
   return (
     <>

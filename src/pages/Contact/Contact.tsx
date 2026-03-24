@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import HeroSectionSecondary from "@/components/HeroSectionSecondary";
+import Navigation from "@/components/Navigation/Navigation";
+import Footer from "@/components/Footer/Footer";
+import HeroSectionSecondary from "@/components/HeroSections/HeroSectionSecondary";
 import { useToast } from "@/hooks/use-toast";
-import ContactFormField from "@/components/ContactFormField";
+import ContactFormField from "@/components/Contact/ContactFormField";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 //data
 import { contactData } from "./ContactData";
-import ContactInfoSection from "@/components/ContactInfoSection";
+import ContactInfoSection from "@/components/Contact/ContactInfoSection";
 
 const FORMSPREE_URL = "https://formspree.io/f/mreagkzn";
 
@@ -19,7 +19,7 @@ const Contact = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-
+  //TO DO: Function for the contact to be exported for scaleability
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);

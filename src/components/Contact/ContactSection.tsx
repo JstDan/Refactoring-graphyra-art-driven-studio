@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import ProjectTypeSection from "./ProjectTypeSection";
+import ProjectTypeSection from "../Project/ProjectTypeSection";
 
 const FORMSPREE_URL = "https://formspree.io/f/mreagkzn";
 

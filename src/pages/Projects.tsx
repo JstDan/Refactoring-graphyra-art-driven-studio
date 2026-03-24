@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation/Navigation";
+import Footer from "@/components/Footer/Footer";
 
 // Import project images
 import projectDobrudzha from "@/assets/project-dobrudzha.png";
@@ -45,7 +45,8 @@ const Projects = () => {
       title: "ПФК Добруджа",
       category: "Социални мрежи",
       categoryKey: "Социални",
-      description: "Управление на социалните мрежи на футболен клуб. Публикации, сторита и цялостна визуална стратегия за онлайн присъствие.",
+      description:
+        "Управление на социалните мрежи на футболен клуб. Публикации, сторита и цялостна визуална стратегия за онлайн присъствие.",
       image: projectDobrudzha,
       year: "2025",
     },
@@ -53,7 +54,8 @@ const Projects = () => {
       title: "Dolce Amaro",
       category: "Уеб дизайн",
       categoryKey: "Уеб",
-      description: "Модерен уебсайт за италиански ресторант с онлайн поръчки и резервации. Елегантен дизайн, който отразява атмосферата на заведението.",
+      description:
+        "Модерен уебсайт за италиански ресторант с онлайн поръчки и резервации. Елегантен дизайн, който отразява атмосферата на заведението.",
       image: projectDolce,
       year: "2024",
     },
@@ -61,7 +63,8 @@ const Projects = () => {
       title: "Double44",
       category: "Бранд идентичност",
       categoryKey: "Брандинг",
-      description: "Луксозен бар в центъра на Варна. Пълна визуална идентичност включваща лого, менюта и брандиране на интериора.",
+      description:
+        "Луксозен бар в центъра на Варна. Пълна визуална идентичност включваща лого, менюта и брандиране на интериора.",
       image: projectDouble44,
       year: "2024",
     },
@@ -69,7 +72,8 @@ const Projects = () => {
       title: "Elegant Moodboard",
       category: "Социални шаблони",
       categoryKey: "Социални",
-      description: "Естетична визуална система за фотографско студио. Шаблони за Instagram и Facebook с единен визуален стил.",
+      description:
+        "Естетична визуална система за фотографско студио. Шаблони за Instagram и Facebook с единен визуален стил.",
       image: projectMoodboard,
       year: "2024",
     },
@@ -77,7 +81,8 @@ const Projects = () => {
       title: "Soul Beauty",
       category: "Социални шаблони",
       categoryKey: "Социални",
-      description: "Цялостна визуална идентичност за салон за красота. Модерен и женствен дизайн за социални мрежи.",
+      description:
+        "Цялостна визуална идентичност за салон за красота. Модерен и женствен дизайн за социални мрежи.",
       image: projectSoul,
       year: "2023",
     },
@@ -85,7 +90,8 @@ const Projects = () => {
       title: "Aurum",
       category: "Социални шаблони",
       categoryKey: "Социални",
-      description: "Система от шаблони за луксозна бижутерска марка. Елегантен и минималистичен подход.",
+      description:
+        "Система от шаблони за луксозна бижутерска марка. Елегантен и минималистичен подход.",
       image: projectAurum,
       year: "2023",
     },
@@ -93,7 +99,8 @@ const Projects = () => {
       title: "Verde Organic",
       category: "Брандинг",
       categoryKey: "Брандинг",
-      description: "Цялостна идентичност за биологичен производител. Природни цветове и органични форми.",
+      description:
+        "Цялостна идентичност за биологичен производител. Природни цветове и органични форми.",
       image: projectVerde,
       year: "2023",
     },
@@ -101,7 +108,8 @@ const Projects = () => {
       title: "Kinetic",
       category: "Motion дизайн",
       categoryKey: "Motion",
-      description: "Анимирани елементи за технологична компания. Динамични визуализации и motion graphics.",
+      description:
+        "Анимирани елементи за технологична компания. Динамични визуализации и motion graphics.",
       image: projectKinetic,
       year: "2023",
     },
@@ -109,7 +117,8 @@ const Projects = () => {
       title: "Lumina Events",
       category: "Печатни материали",
       categoryKey: "Брандинг",
-      description: "Пълен комплект материали за агенция за събития. Покани, банери и рекламни материали.",
+      description:
+        "Пълен комплект материали за агенция за събития. Покани, банери и рекламни материали.",
       image: projectLumina,
       year: "2022",
     },
@@ -132,7 +141,8 @@ const Projects = () => {
           <motion.div
             className="absolute top-0 left-1/2 -translate-x-1/2 w-[200vw] h-[200vw] opacity-40"
             style={{
-              background: "conic-gradient(from 45deg, hsl(var(--accent) / 0.4), transparent 25%, hsl(var(--warm-beige) / 0.3), transparent 50%, hsl(var(--accent) / 0.2), transparent 75%, hsl(var(--warm-beige) / 0.4))",
+              background:
+                "conic-gradient(from 45deg, hsl(var(--accent) / 0.4), transparent 25%, hsl(var(--warm-beige) / 0.3), transparent 50%, hsl(var(--accent) / 0.2), transparent 75%, hsl(var(--warm-beige) / 0.4))",
               rotate: bgRotate,
               filter: "blur(120px)",
             }}
@@ -149,7 +159,11 @@ const Projects = () => {
               }}
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
-              transition={{ duration: 1.5, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 1.5,
+                delay: 0.3 + i * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             />
           ))}
 
@@ -157,7 +171,8 @@ const Projects = () => {
           <motion.div
             className="absolute top-[15%] right-[8%] w-[400px] h-[400px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(var(--accent) / 0.25) 0%, transparent 60%)",
+              background:
+                "radial-gradient(circle, hsl(var(--accent) / 0.25) 0%, transparent 60%)",
               filter: "blur(60px)",
             }}
             animate={{ scale: [1, 1.3, 1], x: [0, -30, 0] }}
@@ -166,7 +181,8 @@ const Projects = () => {
           <motion.div
             className="absolute bottom-[10%] left-[5%] w-[300px] h-[300px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(var(--warm-beige) / 0.3) 0%, transparent 60%)",
+              background:
+                "radial-gradient(circle, hsl(var(--warm-beige) / 0.3) 0%, transparent 60%)",
               filter: "blur(50px)",
             }}
             animate={{ scale: [1.2, 1, 1.2], y: [0, 20, 0] }}
@@ -256,7 +272,11 @@ const Projects = () => {
               className="text-display text-[16vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.85] tracking-tight text-accent"
               initial={{ y: "110%" }}
               animate={{ y: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              transition={{
+                duration: 1.2,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.15,
+              }}
             >
               Проекти<span className="text-foreground">.</span>
             </motion.h1>
@@ -270,7 +290,8 @@ const Projects = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              Всеки проект е уникална история за визуална трансформация и креативно партньорство.
+              Всеки проект е уникална история за визуална трансформация и
+              креативно партньорство.
             </motion.p>
 
             {/* Filters */}
@@ -311,18 +332,29 @@ const Projects = () => {
           >
             {[...Array(2)].map((_, setIndex) => (
               <div key={setIndex} className="flex gap-12 items-center">
-                {["БРАНДИНГ", "✦", "УЕБ ДИЗАЙН", "✦", "СОЦИАЛНИ МРЕЖИ", "✦", "MOTION ДИЗАЙН", "✦", "ПЕЧАТ", "✦", "СТРАТЕГИЯ", "✦"].map(
-                  (text, i) => (
-                    <span
-                      key={`${setIndex}-${i}`}
-                      className={`text-sm tracking-[0.3em] ${
-                        text === "✦" ? "text-accent" : "text-muted-foreground/40"
-                      }`}
-                    >
-                      {text}
-                    </span>
-                  )
-                )}
+                {[
+                  "БРАНДИНГ",
+                  "✦",
+                  "УЕБ ДИЗАЙН",
+                  "✦",
+                  "СОЦИАЛНИ МРЕЖИ",
+                  "✦",
+                  "MOTION ДИЗАЙН",
+                  "✦",
+                  "ПЕЧАТ",
+                  "✦",
+                  "СТРАТЕГИЯ",
+                  "✦",
+                ].map((text, i) => (
+                  <span
+                    key={`${setIndex}-${i}`}
+                    className={`text-sm tracking-[0.3em] ${
+                      text === "✦" ? "text-accent" : "text-muted-foreground/40"
+                    }`}
+                  >
+                    {text}
+                  </span>
+                ))}
               </div>
             ))}
           </motion.div>
@@ -332,10 +364,7 @@ const Projects = () => {
       {/* Projects Grid */}
       <section ref={ref} className="py-16 md:py-24">
         <div className="container-wide">
-          <motion.div 
-            className="grid md:grid-cols-2 gap-8 lg:gap-12"
-            layout
-          >
+          <motion.div className="grid md:grid-cols-2 gap-8 lg:gap-12" layout>
             {filteredProjects.map((project, index) => (
               <motion.article
                 key={project.title}
@@ -351,12 +380,13 @@ const Projects = () => {
                 onMouseEnter={() => setHoveredProject(index)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
-                <motion.div 
+                <motion.div
                   className="relative bg-background overflow-hidden border border-border"
                   style={{
-                    boxShadow: hoveredProject === index 
-                      ? "0 40px 80px -20px rgba(0,0,0,0.4), 0 0 0 2px hsl(var(--accent) / 0.5)" 
-                      : "0 20px 40px -15px rgba(0,0,0,0.2)",
+                    boxShadow:
+                      hoveredProject === index
+                        ? "0 40px 80px -20px rgba(0,0,0,0.4), 0 0 0 2px hsl(var(--accent) / 0.5)"
+                        : "0 20px 40px -15px rgba(0,0,0,0.2)",
                   }}
                   animate={{
                     y: hoveredProject === index ? -10 : 0,
@@ -374,7 +404,7 @@ const Projects = () => {
                       }}
                       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     />
-                    
+
                     {/* Overlay on hover */}
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"
@@ -387,7 +417,7 @@ const Projects = () => {
                     <motion.div
                       className="absolute top-4 right-4"
                       initial={{ opacity: 0, y: -10 }}
-                      animate={{ 
+                      animate={{
                         opacity: hoveredProject === index ? 1 : 0,
                         y: hoveredProject === index ? 0 : -10,
                       }}
@@ -402,7 +432,7 @@ const Projects = () => {
                     <motion.div
                       className="absolute top-4 left-4"
                       initial={{ opacity: 0, y: -10 }}
-                      animate={{ 
+                      animate={{
                         opacity: hoveredProject === index ? 1 : 0,
                         y: hoveredProject === index ? 0 : -10,
                       }}
@@ -435,20 +465,29 @@ const Projects = () => {
                         className="w-10 h-10 rounded-full border border-foreground/30 flex items-center justify-center flex-shrink-0"
                         animate={{
                           scale: hoveredProject === index ? 1.1 : 1,
-                          borderColor: hoveredProject === index ? "hsl(var(--accent))" : "hsl(var(--foreground) / 0.3)",
-                          backgroundColor: hoveredProject === index ? "hsl(var(--accent))" : "transparent",
+                          borderColor:
+                            hoveredProject === index
+                              ? "hsl(var(--accent))"
+                              : "hsl(var(--foreground) / 0.3)",
+                          backgroundColor:
+                            hoveredProject === index
+                              ? "hsl(var(--accent))"
+                              : "transparent",
                         }}
                       >
-                        <motion.svg 
-                          width="14" 
-                          height="14" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
+                        <motion.svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
                           strokeWidth="2"
                           animate={{
                             x: hoveredProject === index ? 2 : 0,
-                            color: hoveredProject === index ? "hsl(var(--primary-foreground))" : "currentColor",
+                            color:
+                              hoveredProject === index
+                                ? "hsl(var(--primary-foreground))"
+                                : "currentColor",
                           }}
                         >
                           <path d="M5 12h14M12 5l7 7-7 7" />
@@ -494,7 +533,14 @@ const Projects = () => {
             whileTap={{ scale: 0.98 }}
           >
             Започни проект
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </motion.a>

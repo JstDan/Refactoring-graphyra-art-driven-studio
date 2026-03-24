@@ -1,8 +1,8 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import HeroSectionSecondary from "@/components/HeroSectionSecondary";
-import ServicesList from "@/components/ServicesList.tsx";
-import CtaSection from "@/components/CtaSection";
+import Navigation from "@/components/Navigation/Navigation";
+import Footer from "@/components/Footer/Footer";
+import HeroSectionSecondary from "@/components/HeroSections/HeroSectionSecondary";
+import ServicesList from "@/components/Service/ServicesList";
+import CtaSection from "@/components/CtaSection/CtaSection";
 //data
 import { servicesData } from "./ServicesData";
 

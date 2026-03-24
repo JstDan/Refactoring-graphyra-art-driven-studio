@@ -1,7 +1,7 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
 //data
-import { contactData } from "../pages/Contact/ContactData";
+import { contactData } from "../../pages/Contact/ContactData";
 const ProjectTypeSection = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   return (
