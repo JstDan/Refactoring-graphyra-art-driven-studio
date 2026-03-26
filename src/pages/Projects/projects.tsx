@@ -1,28 +1,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
-
-// Import project images
-import projectDobrudzha from "@/assets/project-dobrudzha.png";
-import projectDolce from "@/assets/project-dolce.png";
-import projectDouble44 from "@/assets/project-double44.png";
-import projectMoodboard from "@/assets/project-moodboard.png";
-import projectSoul from "@/assets/project-soul.png";
-import projectAurum from "@/assets/project-aurum.jpg";
-import projectVerde from "@/assets/project-verde.jpg";
-import projectKinetic from "@/assets/project-kinetic.jpg";
-import projectLumina from "@/assets/project-lumina.jpg";
-
-interface Project {
-  title: string;
-  category: string;
-  categoryKey: string;
-  description: string;
-  image: string;
-  year: string;
-}
+import { projects } from "./Project";
 
 const Projects = () => {
   const ref = useRef(null);
@@ -39,90 +21,6 @@ const Projects = () => {
   const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
   const filters = ["Всички", "Брандинг", "Уеб", "Социални", "Motion"];
-
-  const projects: Project[] = [
-    {
-      title: "ПФК Добруджа",
-      category: "Социални мрежи",
-      categoryKey: "Социални",
-      description:
-        "Управление на социалните мрежи на футболен клуб. Публикации, сторита и цялостна визуална стратегия за онлайн присъствие.",
-      image: projectDobrudzha,
-      year: "2025",
-    },
-    {
-      title: "Dolce Amaro",
-      category: "Уеб дизайн",
-      categoryKey: "Уеб",
-      description:
-        "Модерен уебсайт за италиански ресторант с онлайн поръчки и резервации. Елегантен дизайн, който отразява атмосферата на заведението.",
-      image: projectDolce,
-      year: "2024",
-    },
-    {
-      title: "Double44",
-      category: "Бранд идентичност",
-      categoryKey: "Брандинг",
-      description:
-        "Луксозен бар в центъра на Варна. Пълна визуална идентичност включваща лого, менюта и брандиране на интериора.",
-      image: projectDouble44,
-      year: "2024",
-    },
-    {
-      title: "Elegant Moodboard",
-      category: "Социални шаблони",
-      categoryKey: "Социални",
-      description:
-        "Естетична визуална система за фотографско студио. Шаблони за Instagram и Facebook с единен визуален стил.",
-      image: projectMoodboard,
-      year: "2024",
-    },
-    {
-      title: "Soul Beauty",
-      category: "Социални шаблони",
-      categoryKey: "Социални",
-      description:
-        "Цялостна визуална идентичност за салон за красота. Модерен и женствен дизайн за социални мрежи.",
-      image: projectSoul,
-      year: "2023",
-    },
-    {
-      title: "Aurum",
-      category: "Социални шаблони",
-      categoryKey: "Социални",
-      description:
-        "Система от шаблони за луксозна бижутерска марка. Елегантен и минималистичен подход.",
-      image: projectAurum,
-      year: "2023",
-    },
-    {
-      title: "Verde Organic",
-      category: "Брандинг",
-      categoryKey: "Брандинг",
-      description:
-        "Цялостна идентичност за биологичен производител. Природни цветове и органични форми.",
-      image: projectVerde,
-      year: "2023",
-    },
-    {
-      title: "Kinetic",
-      category: "Motion дизайн",
-      categoryKey: "Motion",
-      description:
-        "Анимирани елементи за технологична компания. Динамични визуализации и motion graphics.",
-      image: projectKinetic,
-      year: "2023",
-    },
-    {
-      title: "Lumina Events",
-      category: "Печатни материали",
-      categoryKey: "Брандинг",
-      description:
-        "Пълен комплект материали за агенция за събития. Покани, банери и рекламни материали.",
-      image: projectLumina,
-      year: "2022",
-    },
-  ];
 
   const filteredProjects =
     activeFilter === "Всички"
@@ -366,140 +264,141 @@ const Projects = () => {
         <div className="container-wide">
           <motion.div className="grid md:grid-cols-2 gap-8 lg:gap-12" layout>
             {filteredProjects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                className="group cursor-pointer"
-                initial={{ opacity: 0, y: 60 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                layout
-                onMouseEnter={() => setHoveredProject(index)}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <motion.div
-                  className="relative bg-background overflow-hidden border border-border"
-                  style={{
-                    boxShadow:
-                      hoveredProject === index
-                        ? "0 40px 80px -20px rgba(0,0,0,0.4), 0 0 0 2px hsl(var(--accent) / 0.5)"
-                        : "0 20px 40px -15px rgba(0,0,0,0.2)",
+              <Link key={project.title} to={`/projects/${project.slug}`}>
+                <motion.article
+                  className="group cursor-pointer"
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: [0.16, 1, 0.3, 1],
                   }}
-                  animate={{
-                    y: hoveredProject === index ? -10 : 0,
-                  }}
-                  transition={{ duration: 0.4 }}
+                  layout
+                  onMouseEnter={() => setHoveredProject(index)}
+                  onMouseLeave={() => setHoveredProject(null)}
                 >
-                  {/* Image */}
-                  <div className="relative overflow-hidden bg-muted">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-auto object-contain"
-                      animate={{
-                        scale: hoveredProject === index ? 1.05 : 1,
-                      }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    />
-
-                    {/* Overlay on hover */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: hoveredProject === index ? 1 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-
-                    {/* Year tag */}
-                    <motion.div
-                      className="absolute top-4 right-4"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{
-                        opacity: hoveredProject === index ? 1 : 0,
-                        y: hoveredProject === index ? 0 : -10,
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="px-3 py-1.5 bg-background/90 text-foreground text-xs font-medium">
-                        {project.year}
-                      </span>
-                    </motion.div>
-
-                    {/* Category tag */}
-                    <motion.div
-                      className="absolute top-4 left-4"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{
-                        opacity: hoveredProject === index ? 1 : 0,
-                        y: hoveredProject === index ? 0 : -10,
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="px-4 py-2 bg-accent text-primary-foreground text-xs font-medium tracking-wide">
-                        {project.category}
-                      </span>
-                    </motion.div>
-
-                    {/* Glowing border on hover */}
-                    <motion.div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        boxShadow: "inset 0 0 40px hsl(var(--accent) / 0.3)",
-                      }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: hoveredProject === index ? 1 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 md:p-8">
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <h2 className="text-editorial text-2xl md:text-3xl group-hover:text-accent transition-colors">
-                        {project.title}
-                      </h2>
-                      <motion.div
-                        className="w-10 h-10 rounded-full border border-foreground/30 flex items-center justify-center flex-shrink-0"
+                  <motion.div
+                    className="relative bg-background overflow-hidden border border-border"
+                    style={{
+                      boxShadow:
+                        hoveredProject === index
+                          ? "0 40px 80px -20px rgba(0,0,0,0.4), 0 0 0 2px hsl(var(--accent) / 0.5)"
+                          : "0 20px 40px -15px rgba(0,0,0,0.2)",
+                    }}
+                    animate={{
+                      y: hoveredProject === index ? -10 : 0,
+                    }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    {/* Image */}
+                    <div className="relative overflow-hidden bg-muted">
+                      <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-auto object-contain"
                         animate={{
-                          scale: hoveredProject === index ? 1.1 : 1,
-                          borderColor:
-                            hoveredProject === index
-                              ? "hsl(var(--accent))"
-                              : "hsl(var(--foreground) / 0.3)",
-                          backgroundColor:
-                            hoveredProject === index
-                              ? "hsl(var(--accent))"
-                              : "transparent",
+                          scale: hoveredProject === index ? 1.05 : 1,
                         }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      />
+
+                      {/* Overlay on hover */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: hoveredProject === index ? 1 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+
+                      {/* Year tag */}
+                      <motion.div
+                        className="absolute top-4 right-4"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{
+                          opacity: hoveredProject === index ? 1 : 0,
+                          y: hoveredProject === index ? 0 : -10,
+                        }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <motion.svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
+                        <span className="px-3 py-1.5 bg-background/90 text-foreground text-xs font-medium">
+                          {project.year}
+                        </span>
+                      </motion.div>
+
+                      {/* Category tag */}
+                      <motion.div
+                        className="absolute top-4 left-4"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{
+                          opacity: hoveredProject === index ? 1 : 0,
+                          y: hoveredProject === index ? 0 : -10,
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <span className="px-4 py-2 bg-accent text-primary-foreground text-xs font-medium tracking-wide">
+                          {project.category}
+                        </span>
+                      </motion.div>
+
+                      {/* Glowing border on hover */}
+                      <motion.div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          boxShadow: "inset 0 0 40px hsl(var(--accent) / 0.3)",
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: hoveredProject === index ? 1 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 md:p-8">
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <h2 className="text-editorial text-2xl md:text-3xl group-hover:text-accent transition-colors">
+                          {project.title}
+                        </h2>
+                        <motion.div
+                          className="w-10 h-10 rounded-full border border-foreground/30 flex items-center justify-center flex-shrink-0"
                           animate={{
-                            x: hoveredProject === index ? 2 : 0,
-                            color:
+                            scale: hoveredProject === index ? 1.1 : 1,
+                            borderColor:
                               hoveredProject === index
-                                ? "hsl(var(--primary-foreground))"
-                                : "currentColor",
+                                ? "hsl(var(--accent))"
+                                : "hsl(var(--foreground) / 0.3)",
+                            backgroundColor:
+                              hoveredProject === index
+                                ? "hsl(var(--accent))"
+                                : "transparent",
                           }}
                         >
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </motion.svg>
-                      </motion.div>
+                          <motion.svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            animate={{
+                              x: hoveredProject === index ? 2 : 0,
+                              color:
+                                hoveredProject === index
+                                  ? "hsl(var(--primary-foreground))"
+                                  : "currentColor",
+                            }}
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </motion.svg>
+                        </motion.div>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.description}
+                      </p>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                </motion.div>
-              </motion.article>
+                  </motion.div>
+                </motion.article>
+              </Link>
             ))}
           </motion.div>
         </div>
