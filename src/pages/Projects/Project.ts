@@ -41,18 +41,19 @@ export const projects: Project[] = [
     image: projectDolce,
     year: "2024",
     services: ["Уеб дизайн", "UX", "Онлайн резервации"],
-    link: "https://dolce-amaro.example.com",
+    link: "https://dolceamaro.bg/",
     slug: "dolce-amaro",
   },
   {
     title: "Double44",
-    category: "Бранд идентичност",
-    categoryKey: "Брандинг",
+    category: "Уеб дизайн",
+    categoryKey: "Уеб",
     description:
       "Луксозен бар в центъра на Варна. Пълна визуална идентичност включваща лого, менюта и брандиране на интериора.",
     image: projectDouble44,
     year: "2024",
-    services: ["Бранд идентичност", "Menu Design", "Сигнаж"],
+    services: ["Уеб дизайн", "Бранд идентичност", "Menu Design", "Сигнаж"],
+    link: "https://www.double44.com/",
     slug: "double44",
   },
   {
